@@ -1,8 +1,7 @@
 from crypt import *
+from binhextool import *
 
 xor = XOR()
-
-#print xor.strToHex(xor.Crypt(testStr, keyStr))
 
 print "Welcome to Crypt"
 print "================"
@@ -11,11 +10,18 @@ print ""
 xor = XOR()
 print "XOR Cipher"
 print "----------------"
+input = raw_input("(1) Encrypt ASCII\t(2) Decrypt Hex\t")
 
-data = raw_input("Enter data: ")
-key = raw_input("Enter key: ")
+if input == "1":
+	data = raw_input("Enter data: ")
+	key = raw_input("Enter key: ")
 
-output = xor.crypt(data, key)
+	print "Output (raw): ", xor.crypt(data, key, "chr")
+	print "Output (bin): ", xor.crypt(data, key, "bin")
+	print "Output (hex): ", xor.crypt(data, key, "hex")
 
-print "Output (reg): ", output
-print "Output (hex): ", xor.strToHex(output)
+if input == "2":
+	data = raw_input("Enter data: ")
+	key = raw_input("Enter key: ")
+
+	print "Output: ", xor.crypt(hex_to_ascii(data), key, "chr")
