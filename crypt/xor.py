@@ -7,7 +7,7 @@ class XOR:
 
 		return hexStr
 
-	def Crypt(self, string, key):
+	def crypt(self, string, key):
 		cryptString = ""
 		keyIndex = 0
 
