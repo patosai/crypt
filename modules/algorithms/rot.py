@@ -45,9 +45,9 @@ class ROT:
 	def rotate(self, char, rotConst):
 		if (char <= "Z" and char >= "A") or (char <= "z" and char >= "a"):
 			num = ord(char) + (rotConst % 26)
-			if num > ord("z"):
+			if char <= "z" and char >= "a" and num > ord("z"):
 				num = ord("a") + (num - ord("z")) - 1
-			elif num > ord("Z") and num < ord("a"):
+			elif char <= "Z" and char >= "A" and num > ord("Z"):
 				num = ord("A") + (num - ord("Z")) - 1
 			return chr(num)
 		else:
