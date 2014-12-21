@@ -25,8 +25,8 @@ class XOR:
 				print "Output (raw): ", self.crypt(data, key, "chr")
 				print "Output (hex): ", self.crypt(data, key, "hex")
 
-				if input == "2":
-					print "Output: ", self.crypt(hex_to_ascii(data), key, "chr")
+			if input == "2":
+				print "Output: ", self.crypt(hex_to_ascii(data), key, "chr")
 
 	# crypt takes in an ASCII string and xor's it with the key
 	# "Type" indicates whether output will be hex or ASCII
@@ -52,4 +52,8 @@ class XOR:
 			index = string.replace(string[0:i], " "*len(string[0:i]), 1).find(string[0:i])
 			if index > -1:
 				key = string[0:index]
+		if key != "":
+			temp = self.getKey(key)
+			if temp != "":
+				key = self.getKey(key)
 		return key
