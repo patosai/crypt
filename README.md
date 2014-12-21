@@ -8,7 +8,7 @@ Crypt is meant to be a cryptography tool.
 What does it support?
 ----------
 - ROT + decryption frequency analysis
-- XOR (only ASCII encryption, hex decryption)
+- XOR (ASCII encryption, hex decryption, key guessing)
 
 How do I run this?
 ----------

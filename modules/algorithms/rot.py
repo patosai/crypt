@@ -29,7 +29,6 @@ class ROT:
 			print output
 			print ""
 
-
 	# encrypt rotates every character
 	def encrypt(self, string, rotConst):
 		try:
