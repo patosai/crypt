@@ -5,7 +5,7 @@ print "================"
 input = raw_input(
 """(1) ROT
 (2) XOR
-(3) Another option
+(Anything else) Exit
 """)
 
 if input == "1":
