@@ -1,4 +1,4 @@
-import math
+from ..tools import *
 
 class ROT:
 
@@ -23,13 +23,13 @@ class ROT:
 		# do frequency analysis
 		freqList = [0.] * 25
 		for i in range(1,26):
-			freqList[i-1] = self.freqAnalysis(self.encrypt(string, i))
+			freqList[i-1] = freqAnalysis(self.encrypt(string, i))
 		# choose the lowest 10 Euc. distances
 		for i in range(0,16):
 			freqList[freqList.index(max(freqList))] = -1
 		# display these rotations
 		print "Top Ten Most Likely Rotations"
-		print "------------------------------"
+		print "-----------------------------"
 		for i in range(0,25):
 			if freqList[i] != -1:
 				newString = self.encrypt(string, i+1)
@@ -44,8 +44,6 @@ class ROT:
 				newString = self.encrypt(string, i)
 				output = "> {:>2}: ".format(i), newString
 				output = "".join(output)
-				if self.freqAnalysis(newString) < 0.00075:
-					output += " <---- Likely"
 				print output
 				print ""
 

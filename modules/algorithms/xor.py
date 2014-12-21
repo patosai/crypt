@@ -1,4 +1,4 @@
-from ..binhextool import *
+from ..tools import *
 
 class XOR:
 
@@ -9,6 +9,7 @@ class XOR:
 		"""(1) Encrypt ASCII (plaintext & key)
 (2) Decrypt Hex (ciphertext & key)
 (3) Get the key (plaintext & ciphertext)
+(4) Attempt to break hex ciphertext
 """)
 
 		if input == "3":
@@ -17,12 +18,15 @@ class XOR:
 			repeatKey = self.crypt(hex_to_ascii(cipher), plain, "chr")
 			print "Repeating Key XOR: ", repeatKey
 			print "Key? : ", self.getKey(repeatKey)
+		elif input == "4":
+			cipher = raw_input("Ciphertext: ")
+			self.crack(string)
 		else:
 			data = raw_input("Enter data: ")
 			key = raw_input("Enter key: ")
 
 			if input == "1":
-				print "Output (raw): ", self.crypt(data, key, "chr")
+				#print "Output (raw): ", self.crypt(data, key, "chr")
 				print "Output (hex): ", self.crypt(data, key, "hex")
 
 			if input == "2":
@@ -34,14 +38,12 @@ class XOR:
 		cryptString = ""
 		keyIndex = 0
 
-		for x in string:
-			cryptChar = ord(x) ^ ord(key[keyIndex])
+		for x in range(len(string)):
+			cryptChar = ord(string[x]) ^ ord(key[x % len(key)])
 			if type == "chr":
 				cryptString += chr(cryptChar)
 			elif type == "hex":
 				cryptString += hex(cryptChar)[2:].zfill(2)
-
-			keyIndex = (keyIndex + 1) % len(key)
 
 		return cryptString
 
@@ -57,3 +59,6 @@ class XOR:
 			if temp != "":
 				key = self.getKey(key)
 		return key
+
+	def crack(self, string):
+		print "hi"

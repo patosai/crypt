@@ -20,5 +20,8 @@ if __name__ == "__main__":
 			xor.act()
 		else:
 			break
-			
-		print "----------------"
+
+		print ""
+		print "-----------------"
+		print "    Main Page    "
+		print "-----------------"

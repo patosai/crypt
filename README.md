@@ -1,16 +1,19 @@
 Crypt
 ==========
 
-What is this?
-----------
-Crypt is meant to be a cryptography tool.
+Crypt is a cryptography tool.
 
-What does it support?
+Supported Ciphers
 ----------
-- ROT + decryption frequency analysis
-- XOR (ASCII encryption, hex decryption, key guessing)
+- ROT
+  - Encryption with specified rotation
+  - Decryption with frequency analysis for most probable rotation
+- XOR
+  - ASCII -> Hex encryption
+  - Hex -> ASCII decryption
+  - Obtain key with ASCII text and hex ciphertext
 
-How do I run this?
+Running
 ----------
 `python main.py`
 
