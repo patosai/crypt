@@ -7,8 +7,8 @@ Crypt is meant to be a cryptography tool.
 
 What does it support?
 ----------
-ROT
-XOR (ASCII encryption, hex decryption)
+<li>ROT</li>
+<li>XOR (ASCII encryption, hex decryption)</li>
 
 How do I run this?
 ----------
