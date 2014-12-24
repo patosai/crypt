@@ -65,8 +65,8 @@ class XOR:
 		return key
 
 #################### DECRYPTION ###################
-	def decrypt(self, c_num, k_num):
-		return ''.join(chr(c ^ k) for c, k in izip(c_num, cycle(k_num)))
+	def decrypt(self, crypt, key):
+		return ''.join(chr(ord(c) ^ ord(k)) for c, k in izip(crypt, cycle(key)))
 
 	def shift(self, data, offset):
 		return data[offset:] + data[:offset]
@@ -89,10 +89,12 @@ class XOR:
 		decrypted = ''.join(chr(ord(s) ^ ord(key)) for s in string)
 		score = 0
 		for x in decrypted:
-			if letters.find(x) != -1:
+			if x == ' ':
+				score += 100
+			elif letters.find(x) != -1:
 				score += 20
 			elif nums.find(x) != -1:
-				score += 10
+				score += 5
 			elif puncs.find(x) != -1:
 				score += 2
 
@@ -129,6 +131,23 @@ class XOR:
 
 		key = []
 
-		for i in range(1,key_len + 1):
+		for i in range(0,key_len):
 			#keeps track of scores of all characters in printable
-			scores = []
+			scores = [0] * len(printable)
+			substr = ""
+			# get ith, 2ith, 3ith.... chars and sent to getDecryptScore function
+			for j in range(0, len(enc_ascii), key_len):
+				if (j*key_len) + i < len(enc_ascii):
+					substr += enc_ascii[j + i]
+			for j in range(len(printable)):
+				scores[j] = self.getDecryptScore(substr, printable[j])
+
+			indexOfHighestScore = scores.index(max(scores))
+			key.append(printable[indexOfHighestScore])
+
+		print "Is the key: "
+		print key
+		print "?"
+
+		print "Decrypting:"
+		print self.decrypt(enc_ascii, "".join(key))
