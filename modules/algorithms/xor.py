@@ -84,7 +84,22 @@ class XOR:
 
 		enc_numbers = [ord(ch) for ch in enc_ascii]
 
+		frequencies = [0] * 20
+
 		print (' Len Count Rel. Freq.')
+		# TODO: probably need to change range
 		for key_len in range(1, 20): # try multiple key lengths
 			freq = self.count_same(enc_numbers, self.shift(enc_numbers, key_len))
+			frequencies[key_len] = freq
 			print ('{0:< 3d} | {1:3d} |'.format(key_len, freq) + '=' * (freq / 4))
+
+		# find key length
+		key_len = frequencies.index(max(frequencies))
+		# find alt key length
+		alt_freqs = list(frequencies)
+		alt_freqs[alt_freqs.index(max(alt_freqs))] = 0
+		alt_key_len = alt_freqs.index(max(alt_freqs))
+
+		if key_len % alt_key_len == 0:
+			key_len = alt_key_len
+		print "Key length is probably", key_len
