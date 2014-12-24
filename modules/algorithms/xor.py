@@ -1,10 +1,14 @@
 from ..tools import *
+from collections import Counter
+from itertools import izip, cycle
 
 class XOR:
 
 	def act(self):
 		print "XOR Cipher"
 		print "----------"
+		#print getHammingDistance("100", "101")
+
 		input = raw_input(
 		"""(1) Encrypt ASCII (plaintext & key)
 (2) Decrypt Hex (ciphertext & key)
@@ -15,12 +19,12 @@ class XOR:
 		if input == "3":
 			plain = raw_input("Plaintext: ")
 			cipher = raw_input("Ciphertext: ")
-			repeatKey = self.crypt(hex_to_ascii(cipher), plain, "chr")
+			repeatKey = self.crypt(hex2string(cipher), plain, "chr")
 			print "Repeating Key XOR: ", repeatKey
 			print "Key? : ", self.getKey(repeatKey)
 		elif input == "4":
 			cipher = raw_input("Ciphertext: ")
-			self.crack(string)
+			self.crack(cipher)
 		else:
 			data = raw_input("Enter data: ")
 			key = raw_input("Enter key: ")
@@ -30,7 +34,7 @@ class XOR:
 				print "Output (hex): ", self.crypt(data, key, "hex")
 
 			if input == "2":
-				print "Output: ", self.crypt(hex_to_ascii(data), key, "chr")
+				print "Output: ", self.crypt(hex2string(data), key, "chr")
 
 	# crypt takes in an ASCII string and xor's it with the key
 	# "Type" indicates whether output will be hex or ASCII
@@ -60,5 +64,27 @@ class XOR:
 				key = self.getKey(key)
 		return key
 
+#################### DECRYPTION ###################
+	def decrypt(self, c_num, k_num):
+		return ''.join(chr(c ^ k) for c, k in izip(c_num, cycle(k_num)))
+
+	def shift(self, data, offset):
+		return data[offset:] + data[:offset]
+
+	def count_same(self, a, b):
+		count = 0
+		for x, y in zip(a, b):
+			if x == y:
+				count += 1
+		return count
+
+	# string is hex, attempts to crack
 	def crack(self, string):
-		print "hi"
+		enc_ascii = string.decode('hex')
+
+		enc_numbers = [ord(ch) for ch in enc_ascii]
+
+		print (' Len Count Rel. Freq.')
+		for key_len in range(1, 20): # try multiple key lengths
+			freq = self.count_same(enc_numbers, self.shift(enc_numbers, key_len))
+			print ('{0:< 3d} | {1:3d} |'.format(key_len, freq) + '=' * (freq / 4))

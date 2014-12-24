@@ -6,6 +6,11 @@ if __name__ == "__main__":
 	print "============================"
 
 	while 1:
+		print ""
+		print "-----------------"
+		print "    Main Page    "
+		print "-----------------"
+
 		input = raw_input(
 """(1) ROT
 (2) XOR
@@ -20,8 +25,3 @@ if __name__ == "__main__":
 			xor.act()
 		else:
 			break
-
-		print ""
-		print "-----------------"
-		print "    Main Page    "
-		print "-----------------"

@@ -1,10 +1,17 @@
-def ascii_to_hex(string):
-	return "".join([hex(ord(c))[2:].zfill(2) for c in string])
+def string2bin(s):
+	return [ord(x) for x in s]
 
-def hex_to_ascii(string):
-	asciiString = ""
-	while len(string) > 0:
-		part = string[:2]
-		asciiString += chr(int(part, 16))
-		string = string[2:]
-	return asciiString
+def bin2string(b):
+	return ''.join(chr(x) for x in b)
+
+def string2hex(s):
+	return s.encode('hex')
+
+def hex2string(s):
+	return s.decode('hex')
+
+def bin2hex(b):
+	return string2hex(bin2string(b))
+
+def hex2bin(s):
+	return string2bin(hex2string(s))
