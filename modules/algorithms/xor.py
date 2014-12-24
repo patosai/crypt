@@ -78,6 +78,26 @@ class XOR:
 				count += 1
 		return count
 
+	# String is ciphertext, key is one character
+	# Gives back "score", the higher, the more likely the character is part
+	# of the key
+	def getDecryptScore(self, string, key):
+		letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		nums = "1234567890"
+		puncs = ".,'\"/?`~"
+
+		decrypted = ''.join(chr(ord(s) ^ ord(key)) for s in string)
+		score = 0
+		for x in decrypted:
+			if letters.find(x) != -1:
+				score += 20
+			elif nums.find(x) != -1:
+				score += 10
+			elif puncs.find(x) != -1:
+				score += 2
+
+		return score
+
 	# string is hex, attempts to crack
 	def crack(self, string):
 		enc_ascii = string.decode('hex')
@@ -103,3 +123,12 @@ class XOR:
 		if key_len % alt_key_len == 0:
 			key_len = alt_key_len
 		print "Key length is probably", key_len
+
+		# now with key length determined, we can start guessing the key
+		printable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,'\"/?`~"
+
+		key = []
+
+		for i in range(1,key_len + 1):
+			#keeps track of scores of all characters in printable
+			scores = []
