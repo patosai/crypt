@@ -84,19 +84,21 @@ class XOR:
 	def getDecryptScore(self, string, key):
 		letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		nums = "1234567890"
-		puncs = ".,'\"/?`~"
+		puncs = ".,:;'\"/?~`!@#$%^&*()-+="
 
 		decrypted = ''.join(chr(ord(s) ^ ord(key)) for s in string)
 		score = 0
 		for x in decrypted:
 			if x == ' ':
-				score += 100
+				score += 1000
 			elif letters.find(x) != -1:
-				score += 20
+				score += 400
 			elif nums.find(x) != -1:
-				score += 5
+				score += 200
 			elif puncs.find(x) != -1:
-				score += 2
+				score += 50
+			else:
+				score -= 1000
 
 		return score
 
@@ -127,7 +129,7 @@ class XOR:
 		print "Key length is probably", key_len
 
 		# now with key length determined, we can start guessing the key
-		printable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,'\"/?`~"
+		printable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ "
 
 		key = []
 
@@ -145,9 +147,8 @@ class XOR:
 			indexOfHighestScore = scores.index(max(scores))
 			key.append(printable[indexOfHighestScore])
 
-		print "Is the key: "
-		print key
-		print "?"
+		print "I think the key is","".join(key)
+		print ""
 
 		print "Decrypting:"
 		print self.decrypt(enc_ascii, "".join(key))
