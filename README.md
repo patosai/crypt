@@ -12,6 +12,7 @@ Supported Ciphers
   - ASCII -> Hex encryption
   - Hex -> ASCII decryption
   - Obtain key with ASCII text and hex ciphertext
+  - Attempt to crack ciphertext and obtain key
 
 Running
 ----------
