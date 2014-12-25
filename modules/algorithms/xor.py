@@ -1,5 +1,6 @@
 from ..tools import *
 from collections import Counter
+from fractions import gcd
 from itertools import izip, cycle
 
 class XOR:
@@ -65,12 +66,11 @@ class XOR:
 		return key
 
 #################### DECRYPTION ###################
-	def decrypt(self, crypt, key):
-		return ''.join(chr(ord(c) ^ ord(k)) for c, k in izip(crypt, cycle(key)))
-
+	# Shifts a string a certain 'offset' distance
 	def shift(self, data, offset):
 		return data[offset:] + data[:offset]
 
+	# Counts number of same characters in strings a and b
 	def count_same(self, a, b):
 		count = 0
 		for x, y in zip(a, b):
@@ -118,15 +118,20 @@ class XOR:
 			print ('{0:< 3d} | {1:3d} |'.format(key_len, freq) + '=' * (freq / 4))
 
 		# find key length
-		key_len = frequencies.index(max(frequencies))
-		# find alt key length
-		alt_freqs = list(frequencies)
-		alt_freqs[alt_freqs.index(max(alt_freqs))] = 0
-		alt_key_len = alt_freqs.index(max(alt_freqs))
+		freq_avg = sum(frequencies[1:])/(len(frequencies)-1.0)
+		key_len = 0
+		for i in range(1,len(frequencies)):
+			if frequencies[i] > freq_avg:
+				key_len = i
+				break
 
-		if key_len % alt_key_len == 0:
-			key_len = alt_key_len
-		print "Key length is probably", key_len
+		while (1):
+			print "Key length is probably", key_len
+			input = raw_input("Key length override (optional): ")
+			if input != "":
+				key_len = ord(input) - ord("0")
+			else:
+				break
 
 		# now with key length determined, we can start guessing the key
 		printable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ "
@@ -151,4 +156,4 @@ class XOR:
 		print ""
 
 		print "Decrypting:"
-		print self.decrypt(enc_ascii, "".join(key))
+		print self.crypt(enc_ascii, "".join(key), "chr")
