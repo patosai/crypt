@@ -90,15 +90,15 @@ class XOR:
 		score = 0
 		for x in decrypted:
 			if x == ' ':
-				score += 1000
+				score += 20
 			elif letters.find(x) != -1:
-				score += 400
+				score += 8
 			elif nums.find(x) != -1:
-				score += 200
+				score += 4
 			elif puncs.find(x) != -1:
-				score += 50
+				score += 1
 			else:
-				score -= 1000
+				score -= 50
 
 		return score
 

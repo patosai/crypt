@@ -1,6 +1,7 @@
 import math
 
 # Performs frequency analysis on string, returns float from 0-1
+# representing similarity to average sentence
 def freqAnalysis(string):
 	regRatio = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228,
 	            0.02015, 0.06094, 0.06966, 0.00153, 0.00772, 0.04025,
