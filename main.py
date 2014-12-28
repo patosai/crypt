@@ -6,14 +6,8 @@ if __name__ == "__main__":
 	print "============================"
 
 	while 1:
-		print ""
-		print "-----------------"
-		print "    Main Page    "
-		print "-----------------"
-
 		input = raw_input(
-"""
-(1) MD5
+"""(1) MD5
 (2) ROT
 (3) XOR
 (Anything else) Exit
@@ -28,5 +22,8 @@ if __name__ == "__main__":
 		elif input == "3":
 			xor = XOR()
 			xor.act()
-		else:
+
+		input = raw_input("(1) Run Again    (2) Exit\t")
+
+		if input == "1":
 			break
