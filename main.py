@@ -22,8 +22,10 @@ if __name__ == "__main__":
 		elif input == "3":
 			xor = XOR()
 			xor.act()
+		else:
+			break
 
 		input = raw_input("(1) Run Again    (2) Exit\t")
 
-		if input == "1":
+		if input != "1":
 			break
