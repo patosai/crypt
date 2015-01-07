@@ -13,6 +13,8 @@ Supported Ciphers
   - Hex -> ASCII decryption
   - Obtain key with ASCII text and hex ciphertext
   - Attempt to crack ciphertext and obtain key
+- MD5
+  - Get checksum of a file
 
 Running
 ----------
